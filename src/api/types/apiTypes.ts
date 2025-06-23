@@ -100,3 +100,6 @@ export interface CreateUserResponse {
   id: Number;
   message: string;
 }
+export interface DeleteUserResponse {
+  message: string;
+}

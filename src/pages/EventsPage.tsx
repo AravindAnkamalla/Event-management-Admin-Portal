@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useEvents } from '../api/useEvents';
+import { useDeleteEvent, useEvents } from '../api/useEvents';
 import Card from '../components/Card';
 
 import type { Event } from '../types';
@@ -8,13 +8,14 @@ import EventComponent from '../components/EventComponent';
 const EventsPage: React.FC<{ onNavigate: (page: string, params?: { eventId?: string }) => void }> = ({ onNavigate }) => {
   const [page, setPage] = useState(1);
   const limit = 6;
+  const deleteMutation = useDeleteEvent();
 
   const { data: events, isLoading, isError } = useEvents(page, limit);
 
   const handleDelete = async (eventId: number) => {
     if (window.confirm('Are you sure you want to delete this event?')) {
       try {
-        // await deleteMutation.mutateAsync(eventId.toString());
+         await deleteMutation.mutateAsync(eventId.toString());
         alert('Event deleted successfully!');
       } catch (error) {
         alert('Failed to delete event: ' + error);

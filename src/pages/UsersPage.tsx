@@ -17,7 +17,7 @@ const UsersPage: React.FC<{ onNavigate: (page: string, params?: { userId?: strin
       )
     ) {
       try {
-        await deleteMutation.mutateAsync(userId);
+        await deleteMutation.mutateAsync(userId.toString());
         alert("User deleted successfully!");
       } catch (error) {
         alert("Failed to delete user: " + error);

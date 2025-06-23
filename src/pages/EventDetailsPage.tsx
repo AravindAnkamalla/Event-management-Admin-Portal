@@ -1,5 +1,5 @@
 import React from "react";
-import { useEvent } from "../api/useEvents";
+import { useDeleteEvent, useEvent } from "../api/useEvents";
 import Card from "../components/Card";
 import EventHeader from "../components/EventHeader";
 import EventInfoSidebar from "../components/EventInfoSidebar";
@@ -16,6 +16,7 @@ const EventDetailsPage: React.FC<EventDetailsPageProps> = ({
   onNavigate,
 }) => {
   const { data: event, isLoading, isError } = useEvent(eventId);
+  const mutation = useDeleteEvent();
 
   if (isLoading)
     return (
@@ -57,9 +58,17 @@ const EventDetailsPage: React.FC<EventDetailsPageProps> = ({
               onDelete={() => {
                 if (confirm("Are you sure you want to delete this event?")) {
                   // TODO: integrate actual delete mutation
-                  alert("Event deleted.");
-                  onNavigate("events");
-                }
+                  mutation.mutate(event.id.toString(), {
+                    onSuccess: () => {
+                      alert("Event deleted successfully.");
+                      onNavigate("events");
+                    },
+                    onError: (error) => {
+                      console.error("Delete failed:", error);
+                      alert("Failed to delete event.");
+                    },
+                  });
+                } 
               }}
             />
           </Card>

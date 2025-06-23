@@ -3,6 +3,7 @@ import axios from "axios";
 import type {
   CreateUserInput,
   CreateUserResponse,
+  DeleteUserResponse,
   GetUserDetailsResponse,
   LoginResponse,
 } from "./types/apiTypes";
@@ -51,8 +52,23 @@ export const fetchUserById = async (
   }
 };
 
-export const deleteUser = async (userId: Number): Promise<boolean> => {
-  return false;
+export const deleteUser = async (userId: string): Promise<boolean> => {
+  try {
+    console.log("Deleting user with ID:", userId);
+    const response = await axios.delete<DeleteUserResponse>(
+      `http://localhost:8000/api/admin/users/${userId}/delete`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+        },
+      }
+    );
+    console.log("Delete response:", response);
+    return response.status === 200;
+  } catch (err) {
+    console.error("Error deleting user:", err);
+    return false;
+  }
 };
 
 // Function to update registered events for users after event deletions (called from events.ts)

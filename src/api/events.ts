@@ -112,3 +112,21 @@ export const upsertEvent = async (
   );
   return res.data;
 };
+export const deleteEvent = async (eventId: string): Promise<boolean> => {
+  try {
+    console.log("Deleting event with ID:", eventId);
+    const response = await axios.delete(
+      `http://localhost:8000/api/event/${eventId}/delete`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+        },
+      }
+    );
+    console.log("Delete event response:", response);
+    return response.status === 200;
+  } catch (err) {
+    console.error("Error deleting event:", err);
+    return false;
+  }
+};
