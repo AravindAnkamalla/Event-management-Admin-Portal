@@ -1,6 +1,11 @@
 import type { Event, User } from "../types";
 import axios from "axios";
-import type { CreateUserInput, CreateUserResponse, GetUserDetailsResponse, LoginResponse } from "./types/apiTypes";
+import type {
+  CreateUserInput,
+  CreateUserResponse,
+  GetUserDetailsResponse,
+  LoginResponse,
+} from "./types/apiTypes";
 
 export const fetchUsers = async (): Promise<User[]> => {
   let response: any;
@@ -80,11 +85,18 @@ export const resetPasswordEmail = async (email: string): Promise<boolean> => {
   return false;
 };
 
-export const createUser = async (data: CreateUserInput): Promise<CreateUserResponse> => {
-  const response = await axios.post<CreateUserResponse>('/api/users', data);
-  return response.data;
-};
-export const updateUser = async (data: CreateUserInput): Promise<CreateUserResponse> => {
-  const response = await axios.post<CreateUserResponse>('/api/users', data);
+export const upsertUser = async (
+  data: CreateUserInput & { id?: number }
+): Promise<CreateUserResponse> => {
+  const userId = data.id ?? 0;
+  const response = await axios.post<CreateUserResponse>(
+    `http://localhost:8000/api/admin/users/upsert`,
+    data,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+      },
+    }
+  );
   return response.data;
 };

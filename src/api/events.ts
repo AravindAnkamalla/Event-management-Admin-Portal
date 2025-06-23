@@ -98,3 +98,17 @@ export const updatedEvent = async (
     return undefined;
   }
 }
+export const upsertEvent = async (
+  eventData: Partial<EventDetails>
+): Promise<EventDetails> => {
+  const res = await axios.post<EventDetails>(
+    "http://localhost:8000/api/event/upsertEvent",
+    eventData,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+      },
+    }
+  );
+  return res.data;
+};

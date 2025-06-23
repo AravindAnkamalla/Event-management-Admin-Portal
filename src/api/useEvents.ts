@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { fetchEvents,  createEvent, fetchEventDetails, updatedEvent } from './events';
+import { fetchEvents,  createEvent, fetchEventDetails, updatedEvent, upsertEvent } from './events';
 
 import type { CreateEventRequest, CreateEventResponse, EventDetails, GetEventsResponse } from './types/apiTypes';
 
@@ -46,6 +46,15 @@ export const useUpdateEvent = () => {
     },
   });
 };
+export const useUpsertEvent = () => {
+  const queryClient = useQueryClient();
 
+  return useMutation<EventDetails, Error, Partial<EventDetails>>({
+    mutationFn: upsertEvent,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["events"] });
+    },
+  });
+};
 
 

@@ -92,7 +92,7 @@ export interface CreateUserInput{
   username: string;
   email: string;
   mobile?: string;
-  password: string; 
+  password?: string; 
   role: Role
 }
 

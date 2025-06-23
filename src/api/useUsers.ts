@@ -2,9 +2,8 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   fetchUsers,
   fetchUserById,
-  createUser,
-  updateUser,
   deleteUser,
+  upsertUser,
 } from "../api/users";
 import type { User } from "../types";
 import type { CreateUserInput, CreateUserResponse } from "./types/apiTypes";
@@ -24,27 +23,17 @@ export const useUser = (userId: string) => {
     queryFn: () => fetchUserById(userId),
   });
 };
-
-// api/useUsers.ts
-export const useAddUser = () => {
+export const useUpsertUser = () => {
   const queryClient = useQueryClient();
-
-  return useMutation<CreateUserResponse, Error, CreateUserInput>({
-    mutationFn: createUser,
+  return useMutation<CreateUserResponse, Error, CreateUserInput & { id?: number }>({
+    mutationFn: upsertUser,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [USER_QUERY_KEY] });
+      queryClient.invalidateQueries({ queryKey: ['users'] });
     },
   });
 };
 
-export const useUpdateUser = () => {
-  const queryClient = useQueryClient();
 
-  return useMutation<CreateUserResponse, Error, CreateUserInput>({
-    mutationFn: updateUser,
-    
-  });
-};
 
 export const useDeleteUser = () => {
   const queryClient = useQueryClient();
