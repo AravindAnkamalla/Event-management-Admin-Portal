@@ -1,54 +1,53 @@
-# React + TypeScript + Vite
+# 🎫 Event Management Admin Portal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern and responsive admin dashboard for managing events and users, built with **React.js**, **TypeScript**, **Tailwind CSS**, and **React Query**. Designed to support efficient event creation, user registration management, and real-time data interactions.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- 🧑‍💼 **Admin Authentication**
+  - Secure login and session handling with JWT
+  - Password reset and access control
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 📅 **Event Management**
+  - Create, edit, delete events
+  - View event details
+  - Assign users to events
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- 👥 **User Management**
+  - View registered users
+  - Assign or remove users from events
+  - Create users
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- 📊 **Dashboard**
+  - Summary of total events and participants
+  - Quick actions and real-time stats
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🧰 Tech Stack
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+| Frontend  | Description               |
+|-----------|---------------------------|
+| React.js  | Component-based UI        |
+| TypeScript | Type-safe JavaScript     |
+| Tailwind CSS | Utility-first styling  |
+| React Query | Data fetching & caching |
+
+---
+
+
+## 📦 Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/AravindAnkamalla/Event-management-Admin-Portal.git
+cd Event-management-Admin-Portal
+
+# Install dependencies
+npm install
+
+#🧪 Development
+npm run dev
+
+
+
